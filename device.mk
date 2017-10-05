@@ -56,41 +56,27 @@ PRODUCT_AAPT_CONFIG := normal
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio.primary.msm8953 \
+    audiod \
     audio.a2dp.default \
-    audio.usb.default \
+    audio.primary.msm8953 \
     audio.r_submix.default \
+    audio.usb.default \
     libaudio-resampler \
-    libshim_adsp \
-    libtinycompress
-
-PRODUCT_PACKAGES += \
     libqcomvisualizer \
     libqcomvoiceprocessing \
-    libqcomvoiceprocessingdescriptors \
-    libqcompostprocbundle
-
-PRODUCT_PACKAGES += \
-    android.hardware.audio@2.0-impl \
-    android.hardware.audio.effect@2.0-impl \
-    android.hardware.broadcastradio@1.0-impl \
-    android.hardware.soundtrigger@2.0-impl
+    libqcompostprocbundle \
+    libshim_adsp \
+    tinymix
 
 PRODUCT_COPY_FILES +=  \
     $(LOCAL_PATH)/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
-    $(LOCAL_PATH)/audio/audio_policy.conf:system/vendor/etc/audio_policy.conf \
+    $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/audio/audio_output_policy.conf:system/vendor/etc/audio_output_policy.conf \
-    $(LOCAL_PATH)/audio/audio_platform_info_extcodec.xml:system/vendor/etc/audio_platform_info_extcodec.xml \
-    $(LOCAL_PATH)/audio/mixer_paths.xml:system/vendor/etc/mixer_paths.xml \
-    $(LOCAL_PATH)/audio/audio_ext_spkr.conf:system/vendor/etc/audio_ext_spkr.conf \
-    $(LOCAL_PATH)/audio/audio_platform_info.xml:system/vendor/etc/audio_platform_info.xml \
-    $(LOCAL_PATH)/audio/sound_trigger_mixer_paths.xml:system/vendor/etc/sound_trigger_mixer_paths.xml \
-    $(LOCAL_PATH)/audio/sound_trigger_platform_info.xml:system/vendor/etc/sound_trigger_platform_info.xml    
-
-# Bluetooth
-PRODUCT_PACKAGES += \
-    libbt-vendor \
-    android.hardware.bluetooth@1.0-impl
+    $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
+    $(LOCAL_PATH)/audio/audio_ext_spkr.conf:system/etc/audio_ext_spkr.conf \
+    $(LOCAL_PATH)/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml \
+    $(LOCAL_PATH)/audio/sound_trigger_mixer_paths.xml:system/etc/sound_trigger_mixer_paths.xml \
+    $(LOCAL_PATH)/audio/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml
 
 # Browser
 PRODUCT_PACKAGES += \
@@ -99,22 +85,16 @@ PRODUCT_PACKAGES += \
 # Camera
 PRODUCT_PACKAGES += \
     libbson \
-    libshim_camera \
-    Snap \
-    camera.device@3.2-impl \
-    android.hardware.camera.provider@2.4-impl \
-    libshim_camera_hal \
-    libshims_camera
+    libshim_camera
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/camera/msm8953_mot_sanders_camera.xml:system/etc/camera/msm8953_mot_sanders_camera.xml \
     $(LOCAL_PATH)/configs/camera/imx219_chromatix.xml:system/etc/camera/imx219_chromatix.xml \
     $(LOCAL_PATH)/configs/camera/mot_imx258_bear_chromatix.xml:system/etc/camera/mot_imx258_bear_chromatix.xml \
     $(LOCAL_PATH)/configs/camera/mot_imx258_mono_chromatix.xml:system/etc/camera/mot_imx258_mono_chromatix.xml \
     $(LOCAL_PATH)/configs/camera/mot_s5k3l8_bear_chromatix.xml:system/etc/camera/mot_s5k3l8_bear_chromatix.xml \
     $(LOCAL_PATH)/configs/camera/mot_s5k3l8_mono_chromatix.xml:system/etc/camera/mot_s5k3l8_mono_chromatix.xml \
-    $(LOCAL_PATH)/configs/camera/mot_s5k3l8_mono_chromatix.xml:system/etc/camera/mot_s5k3l8_mono_chromatix.xml \
-    $(LOCAL_PATH)/configs/camera/s5k4h8_chromatix.xml:system/etc/camera/s5k4h8_chromatix.xml \
-    $(LOCAL_PATH)/configs/camera/vfwconfig.json:system/etc/camera/vfwconfig.json
+    $(LOCAL_PATH)/configs/camera/s5k4h8_chromatix.xml:system/etc/camera/s5k4h8_chromatix.xml
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/flp.conf:system/etc/flp.conf \
@@ -131,19 +111,12 @@ PRODUCT_PACKAGES += \
 # Display
 PRODUCT_PACKAGES += \
     gralloc.msm8953 \
-    android.hardware.graphics.allocator@2.0-impl \
-    android.hardware.graphics.allocator@2.0-service \
-    android.hardware.graphics.composer@2.1-impl \
-    android.hardware.graphics.mapper@2.0-impl \
-    android.hardware.memtrack@1.0-impl \
+    copybit.msm8953 \
+    liboverlay \
     hwcomposer.msm8953 \
     memtrack.msm8953 \
     libgenlock \
     libtinyxml
-
-# RenderScript HAL
-PRODUCT_PACKAGES += \
-    android.hardware.renderscript@1.0-impl
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -157,8 +130,7 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.1-service \
-    fingerprint.msm8953
+    fingerprintd
 
 # FM
 PRODUCT_PACKAGES += \
@@ -169,23 +141,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fs_config_files
 
-# Gatekeeper HAL
-PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl
-
-# GNSS HAL
-PRODUCT_PACKAGES += \
-    android.hardware.gnss@1.0-impl
-
 # GPS
 PRODUCT_PACKAGES += \
     libgnsspps \
-    gps.msm8953 \
-    libshims_get_process_name
-
-# HIDL
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml
+    gps.msm8953
 
 # IMS
 PRODUCT_PACKAGES += \
@@ -209,26 +168,17 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl \
     $(LOCAL_PATH)/keylayout/uinput-fpc.kl:system/usr/keylayout/uinput-fpc.kl
 
-# Keymaster HAL
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl
-
 # IDC
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/uinput-fpc.idc:system/usr/idc/uinput-fpc.idc
 
 # Lights
 PRODUCT_PACKAGES += \
-    lights.msm8953 \
-    android.hardware.light@2.0-impl
+    lights.msm8953
 
 # Display Calibration
 PRODUCT_PACKAGES += \
     libjni_livedisplay
-
-# DRM
-PRODUCT_PACKAGES += \
-    android.hardware.drm@1.0-impl \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/qdcm_calib_data_mipi_mot_vid_djn_1080p_550.xml:system/etc/qdcm_calib_data_mipi_mot_vid_djn_1080p_550.xml \
@@ -240,8 +190,11 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/configs/media_codecs_8953_v1.xml:system/etc/media_codecs_8953_v1.xml \
     $(LOCAL_PATH)/configs/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
-    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
+    $(LOCAL_PATH)/configs/media_codecs_performance_8953_v1.xml:system/etc/media_codecs_performance_8953_v1.xml \
+    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/configs/media_profiles_8953_v1.xml:system/etc/media_profiles_8953_v1.xml
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
@@ -256,18 +209,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
     $(LOCAL_PATH)/configs/libnfc-nxp.conf:system/etc/libnfc-nxp.conf
 
-# Netutils
-PRODUCT_PACKAGES += \
-    netutils-wrapper-1.0
-
 PRODUCT_PACKAGES += \
     libnfc \
     libnfc_jni \
-    nfc_nci.msm8953 \
+    nfc_nci.pn54x.default \
     NfcNci \
     Tag \
-    com.android.nfc_extras \
-    android.hardware.nfc@1.0-impl
+    com.android.nfc_extras
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -283,7 +231,6 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-impl \
     power.msm8953
 
 # Ramdisk
@@ -311,33 +258,16 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     librmnetctl \
     libshim_ril \
-    libprotobuf-cpp-full \
-    libxml2 \
-    rild_socket
-
-# Seccomp policy
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/seccomp_policy/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy
+    libxml2
 
 # Sensors
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf \
     $(LOCAL_PATH)/configs/sensors/sensor_def_qcomdev.conf:system/etc/sensors/sensor_def_qcomdev.conf
 
-PRODUCT_PACKAGES += \
-    android.hardware.sensors@1.0-impl
-
 # Thermal
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine-sanders.conf:system/etc/thermal-engine-sanders.conf
-
-# USB HAL
-PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service
-
-# Vibrator
-PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.0-impl
 
 # Wifi
 PRODUCT_PACKAGES += \
@@ -350,23 +280,12 @@ PRODUCT_PACKAGES += \
     p2p_supplicant_overlay.conf \
     wpa_supplicant_overlay.conf
 
-# Launcher3
-PRODUCT_PACKAGES += \
-    Launcher3
-
-# WiFi HAL
-PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service
-
 PRODUCT_PACKAGES += \
     libcurl \
     libqsap_sdk \
     libQWiFiSoftApCfg \
-    wificond \
-    wifilogd \
     tcpdump \
-    wcnss_service \
-    libwpa_client
+    wcnss_service
 
 # Wifi Symlinks
 PRODUCT_PACKAGES += \
@@ -379,11 +298,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     kernel/motorola/msm8953/drivers/staging/prima/firmware_bin/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
-    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
-    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/vendor/etc/wifi/WCNSS_qcom_cfg.ini
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
 PRODUCT_GMS_CLIENTID_BASE := android-motorola
-
-PRODUCT_VENDOR_KERNEL_HEADERS := hardware/qcom/msm8996/kernel-headers

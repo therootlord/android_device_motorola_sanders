@@ -1,5 +1,5 @@
 #!/system/bin/sh
-carrier=`getprop ro.boot.carrier`
+carrier=`getprop ro.carrier`
 
 case "$carrier" in
     "retbr" | "timbr" | "tefbr" | "oibr" | "amxbr" | "niibr")

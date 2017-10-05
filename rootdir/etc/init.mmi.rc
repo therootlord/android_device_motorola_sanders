@@ -35,7 +35,7 @@ on post-fs
     mkdir /persist/public/atvc 0770 mot_atvc shell
     mkdir /persist/public/battd 0755 mot_accy mot_tcmd
     mkdir /persist/public/att_dm 0775 radio mot_tcmd
-    mkdir /persist/public/hiddenmenu 0755 radio radio
+    mkdir /persist/public/hiddenmenu 0775 radio mot_tcmd
     mkdir /persist/public/hiddenmenu/data 0775 system mot_tcmd
     mkdir /persist/public/locale 0700 system system
     mkdir /persist/public/omadm 0700 radio radio
@@ -129,6 +129,8 @@ on post-fs-data
 
     # Permissions for phone power off log
     mkdir /data/power_log 0750 root log
+    chmod 0660 /sys/module/power_supply_log/parameters/log_file
+    write /sys/module/power_supply_log/parameters/log_file /data/power_log/power_off.log
 
     # Subsystem RAM-dumps
     mkdir /data/ss-ram-dumps 0750 system log
@@ -157,8 +159,7 @@ on post-fs-data
     # Imager tuning data for camera subsystem
     mkdir /data/misc/imager 0770 camera camera
 
-    #setup folder for WLAN WAPI
-    chmod 0770 /data/wapi_certificate
+    mkdir /data/misc/sensors 0775 system system
 
 on boot
    # restore default console_loglevel to KERN_DEBUG
@@ -218,6 +219,10 @@ on boot
    chown root mot_tcmd /sys/class/graphics/fb0/te_enable
    chown root mot_tcmd /sys/class/graphics/fb0/frame_counter
 
+   chmod 0775 /persist/sensors
+   chmod 0664 /persist/sensors/sensors_settings
+   chown system root /persist/sensors/sensors_settings
+
    chown audio audio /sys/kernel/aov/trigger
    chown audio audio /sys/kernel/aov/register
    chown audio audio /sys/kernel/aov/event
@@ -276,6 +281,7 @@ service fingerprintd /system/bin/fingerprintd
     group input
 
 service mmi-boot-sh /system/bin/init.mmi.boot.sh
+    seclabel u:r:mmi_boot:s0
     class core
     user root
     oneshot
@@ -286,6 +292,7 @@ service mmi-touch-sh /system/bin/init.mmi.touch.sh
     oneshot
 
 service oem-hw-sh /system/bin/init.oem.hw.sh
+    seclabel u:r:oem-hw-sh:s0
     class core
     user root
     oneshot

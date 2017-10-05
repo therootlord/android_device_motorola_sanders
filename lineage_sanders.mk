@@ -14,9 +14,9 @@
 # limitations under the License.
 #
 
-# Inherit from potter device
+# Inherit from sanders device
 $(call inherit-product, device/motorola/sanders/device.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := sanders
-PRODUCT_NAME := full_sanders
+PRODUCT_NAME := lineage_sanders

@@ -10,8 +10,7 @@ LOCAL_SHARED_LIBRARIES := \
     libutils \
     libcutils \
     liblog \
-    libloc_stub \
-    libandroid_runtime
+    libloc_stub
 
 LOCAL_SRC_FILES += \
         platform_lib_android_runtime.cpp \
@@ -26,6 +25,8 @@ LOCAL_CFLAGS += \
      -D_ANDROID_ \
      -std=c++11
 
+
+LOCAL_LDFLAGS += -Wl,--export-dynamic
 
 ## Includes
 LOCAL_C_INCLUDES:= \

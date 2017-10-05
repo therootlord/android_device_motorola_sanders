@@ -10,5 +10,9 @@ if [ "$sku" = "XT1687" ]; then
     rm -r /system/app/NfcNci
 else
     # Only XT1687 variant got a compass
+    rm /system/etc/permissions/android.hardware.nfc.xml
+    rm /em/etc/permissions/android.hardware.nfc.hce.xml
+    rm /system/etc/permissions/com.android.nfc_extras.xml
+    rm -r /system/app/NfcNci
     rm /system/etc/permissions/android.hardware.sensor.compass.xml
 fi
