@@ -181,7 +181,7 @@ persist.radio.adam=true
 persist.radio.apm_sim_not_pwdn=1
 persist.vendor.radio.dfr_mode_set=1
 persist.vendor.radio.force_get_pref=1
-persist.radio.msgtunnel.start=true
+persist.vendor.radio.msgtunnel.start=true
 persist.vendor.radio.no_wait_for_card=1
 persist.vendor.radio.oem_ind_to_both=0
 persist.vendor.radio.relay_oprt_change=1
@@ -204,20 +204,19 @@ persist.radio.ROTATION_ENABLE=1
 persist.radio.adb_log_on=0
 persist.radio.calls.on.ims=true
 persist.radio.domain.ps=0
-persist.radio.sar_sensor=1
+persist.vendor.radio.sar_sensor=1
 persist.vendor.radio.sib16_support=1
-persist.radio.sib16_support=1
 persist.vendor.radio.rat_on=combine
 persist.rmnet.mux=enabled
 ro.telephony.call_ring.multiple=false
 persist.vendor.radio.eri64_as_home=1
 persist.vendor.radio.data_con_rprt=1
 
-ro.use_data_netmgrd=true
+ro.vendor.use_data_netmgrd=true
 persist.data.qmi.adb_logmask=0
 persist.data.netmgrd.qos.enable=true
-persist.data.mode=concurrent
-persist.data.iwlan.enable=true
+persist.vendor.data.mode=concurrent
+persist.vendor.data.iwlan.enable=true
 
 # RmNet Data
 persist.rmnet.data.enable=true

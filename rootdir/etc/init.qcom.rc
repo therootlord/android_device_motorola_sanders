@@ -691,13 +691,13 @@ service vendor.netmgrd /system/vendor/bin/netmgrd
     group radio system wakelock
     writepid /dev/cpuset/system-background/tasks
 
-service vendor.qti /system/vendor/bin/qti
+service vendor.dataqti /system/vendor/bin/qti
     class main
     user radio
-    group radio net_raw oem_2950 usb net_admin
+    group radio oem_2950 diag usb net_admin
     writepid /dev/cpuset/system-background/tasks
 
-on property:ro.use_data_netmgrd=false
+on property:ro.vendor.use_data_netmgrd=false
     # netmgr not supported on specific target
     stop vendor.netmgrd
 
@@ -835,7 +835,7 @@ on property:crypto.driver.load=1
      insmod /system/lib/modules/qce.ko
      insmod /system/lib/modules/qcedev.ko
 
-service atfwd /system/vendor/bin/ATFWD-daemon
+service vendor.atfwd /system/vendor/bin/ATFWD-daemon
     class late_start
     user system
     group system radio
