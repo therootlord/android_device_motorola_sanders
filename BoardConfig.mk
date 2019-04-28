@@ -24,30 +24,34 @@ TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := cortex-a53
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
-
-TARGET_CPU_CORTEX_A53 := true
-
-TARGET_BOARD_PLATFORM := msm8953
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno506
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8953
 TARGET_NO_BOOTLOADER := true
 
+# Crypto
+TARGET_HW_DISK_ENCRYPTION := true
+
+# Platform
+TARGET_BOARD_PLATFORM := msm8953
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno506
 
 # Kernel
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 vmalloc=350M androidboot.selinux=permissive
+BOARD_CUSTOM_BUILD_MAKEFILE := $(LOCAL_PATH)/dt_image.mk
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x80000000
+BOARD_KERNEL_IMAGE_NAME := Image.gz
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_TAGS_OFFSET := 0x00000100
-BOARD_RAMDISK_OFFSET := 0x01000000
-BOARD_MKBOOTIMG_ARGS :=  --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --kernel_offset 0x00008000 --dt device/motorola/sanders/dt.img
-BOARD_CUSTOM_BOOTIMG_MK := device/motorola/sanders/mkbootimg.mk
-TARGET_PREBUILT_KERNEL := device/motorola/sanders/kernel
+BOARD_KERNEL_PREBUILT_DT := true
+BOARD_KERNEL_SEPARATED_DT := true
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
+LZMA_RAMDISK_TARGETS := recovery
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/kernel
+TARGET_PREBUILT_DTB := $(LOCAL_PATH)/prebuilt/dt.img
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
@@ -60,28 +64,23 @@ BOARD_OEMIMAGE_PARTITION_SIZE := 805306368        #   786432 * 1024 mmcblk0p51
 BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432     #    32768 * 1024 mmcblk0p30
 
 # Filesystems
-BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := device/motorola/sanders/twrp.fstab
-BOARD_SUPPRESS_SECURE_ERASE := true
 
 # TWRP Configuration
-TW_THEME := portrait_hdpi
 TW_MAX_BRIGHTNESS := 255
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
-TW_SCREEN_BLANK_ON_BOOT := true
-TARGET_RECOVERY_QCOM_RTC_FIX := true
 RECOVERY_SDCARD_ON_DATA := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_INCLUDE_NTFS_3G := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TWRP_INCLUDE_LOGCAT := true
-
-# Encryption
-TARGET_HW_DISK_ENCRYPTION := true
+TW_EXCLUDE_TWRPAPP := true
 TW_INCLUDE_CRYPTO := true
-TARGET_KEYMASTER_WAIT_FOR_QSEE := true
-TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd
+TW_INCLUDE_NTFS_3G := true
+TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_NEW_ION_HEAP := true
+TW_SCREEN_BLANK_ON_BOOT := true
+TW_THEME := portrait_hdpi
+TW_USE_TOOLBOX := true
