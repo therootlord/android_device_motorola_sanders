@@ -206,11 +206,9 @@ PRODUCT_COPY_FILES += \
 
 # IMS
 PRODUCT_PACKAGES += \
-    ims-ext-common \
-    telephony-ext
+    ims-ext-common
 
 PRODUCT_BOOT_JARS += \
-    telephony-ext \
     QPerformance \
     UxPerformance
 
